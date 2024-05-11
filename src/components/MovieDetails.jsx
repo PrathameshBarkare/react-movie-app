@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Navbar from './Navbar';
 
-function MovieDetails() {
+function MovieDetails() { 
   const [details, setDetails] = useState(null);
   const [cast, setCast] = useState([]);
   const { movieID } = useParams();
+  const [activeButton, setActiveButton] = useState('popular');
+
   const API_KEY = "c45a857c193f6302f2b5061c3b85e743";
 
   useEffect(() => {
@@ -29,7 +31,7 @@ function MovieDetails() {
           throw new Error('Failed to fetch cast');
         }
         const data = await res.json();
-        setCast(data.cast.filter(actor => actor.profile_path)); // Filter out actors without a profile photo
+        setCast(data.cast.filter(actor => actor.profile_path));
       } catch (error) {
         console.error(error);
       }
@@ -39,9 +41,43 @@ function MovieDetails() {
     fetchCast();
   }, [movieID, API_KEY]);
 
+  const handleButtonClick = (category) => {
+    setActiveButton(category);
+  };
+
   return (
     <div className="flex flex-col h-screen">
-      <Navbar />
+      
+      <div className="flex justify-between items-center h-14 bg-gray-700 text-white px-6 shadow-2xl shadow-black">
+      <h1 className='m-10 text-lg text-yellow-400'>
+        Movies<strong className='text-xl'>X</strong>
+      </h1>
+
+      <div className="flex mr-96">
+        <Link
+          to={'/'}
+          onClick={() => handleButtonClick('popular')}
+          className={`m-16 text-lg cursor-pointer ${activeButton === 'popular' ? 'font-bold text-yellow-400' : ''}`}
+        >
+          Popular
+        </Link>
+        <Link
+        to={'/'}
+          onClick={() => handleButtonClick('top_rated')}
+          className={`m-16 text-lg cursor-pointer ${activeButton === 'top_rated' ? 'font-bold text-yellow-400' : ''}`}
+        >
+          Top Rated
+        </Link>
+        <Link
+        to={'/'}
+          onClick={() => handleButtonClick('upcoming')}
+          className={`m-16 text-lg cursor-pointer ${activeButton === 'upcoming' ? 'font-bold text-yellow-400' : ''}`}
+        >
+          Upcoming
+        </Link>
+      </div>
+    </div>
+
       <div className="flex justify-center items-center bg-gray-500">
         {details && (
           <div className="m-5 pr-20 h-72 w-11/12 bg-gray-800 rounded-lg flex shadow-lg shadow-gray-600">

@@ -1,45 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 
 function HomePage(props) {
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
-  const [category, setCategory] = useState('popular');
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const Api_key = 'c45a857c193f6302f2b5061c3b85e743';
-  const baseUrl = 'https://api.themoviedb.org/3';
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const res = await fetch(
-          `${baseUrl}/movie/${category}?api_key=${Api_key}&language=en-US&page=${page}`
-        );
-        if (!res.ok) {
-          throw new Error('Failed to fetch movies');
-        }
-        const data = await res.json();
-        setMovies(data.results);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchMovies();
-  }, [category, page]);
-
-  const handleCategoryChange = (newCategory) => {
-    setCategory(newCategory);
-    setPage(1);
-  };
-
-  const handlePrevClick = () => {
-    setPage((page) => page - 1);
-  };
-
-  const handleNextClick = () => {
-    setPage((page) => page + 1);
+  const handleCategoryChange = (newMovies) => {
+    setMovies(newMovies);
   };
 
   const handleSearch = async (query) => {
@@ -52,14 +20,29 @@ function HomePage(props) {
       }
       const data = await res.json();
       setMovies(data.results);
+      setCurrentPage(1);
     } catch (error) {
       console.error(error);
     }
   };
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const handlePrevClick = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  const handleNextClick = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
   return (
     <>
-      <Navbar onCategoryChange={handleCategoryChange} onSearch={handleSearch} />
+      <Navbar onCategoryChange={handleCategoryChange} onSearch={handleSearch} onPageChange={handlePageChange} currentPage={currentPage} />
       <div className="pt-5 bg-gray-500 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 shadow-2xl shadow--800">
         {movies.map((movie) => (
           <div key={movie.id} className="flex flex-col items-center">
