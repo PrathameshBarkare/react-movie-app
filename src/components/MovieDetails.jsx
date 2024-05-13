@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import Navbar from './Navbar';
 
 function MovieDetails() { 
   const [details, setDetails] = useState(null);
@@ -47,48 +46,47 @@ function MovieDetails() {
 
   return (
     <div className="flex flex-col h-screen">
-      
       <div className="flex justify-between items-center h-14 bg-gray-700 text-white px-6 shadow-2xl shadow-black">
-      <h1 className='m-10 text-lg text-yellow-400'>
-        Movies<strong className='text-xl'>X</strong>
-      </h1>
+        <h1 className='m-10 text-lg text-yellow-400'>
+          Movies<strong className='text-xl'>X</strong>
+        </h1>
 
-      <div className="flex mr-96">
-        <Link
-          to={'/'}
-          onClick={() => handleButtonClick('popular')}
-          className={`m-16 text-lg cursor-pointer ${activeButton === 'popular' ? 'font-bold text-yellow-400' : ''}`}
-        >
-          Popular
-        </Link>
-        <Link
-        to={'/'}
-          onClick={() => handleButtonClick('top_rated')}
-          className={`m-16 text-lg cursor-pointer ${activeButton === 'top_rated' ? 'font-bold text-yellow-400' : ''}`}
-        >
-          Top Rated
-        </Link>
-        <Link
-        to={'/'}
-          onClick={() => handleButtonClick('upcoming')}
-          className={`m-16 text-lg cursor-pointer ${activeButton === 'upcoming' ? 'font-bold text-yellow-400' : ''}`}
-        >
-          Upcoming
-        </Link>
+        <div className="flex mr-96">
+          <Link
+            to={'/'}
+            onClick={() => handleButtonClick('popular')}
+            className={`m-16 text-lg cursor-pointer ${activeButton === 'popular' ? 'font-bold text-yellow-400' : ''}`}
+          >
+            Popular
+          </Link>
+          <Link
+            to={'/'}
+            onClick={() => handleButtonClick('top_rated')}
+            className={`m-16 text-lg cursor-pointer ${activeButton === 'top_rated' ? 'font-bold text-yellow-400' : ''}`}
+          >
+            Top Rated
+          </Link>
+          <Link
+            to={'/'}
+            onClick={() => handleButtonClick('upcoming')}
+            className={`m-16 text-lg cursor-pointer ${activeButton === 'upcoming' ? 'font-bold text-yellow-400' : ''}`}
+          >
+            Upcoming
+          </Link>
+        </div>
       </div>
-    </div>
-
-      <div className="flex justify-center items-center bg-gray-500">
+      
+      <div className="bg-gray-500 flex justify-center items-center">
         {details && (
-          <div className="m-5 pr-20 h-72 w-11/12 bg-gray-800 rounded-lg flex shadow-lg shadow-gray-600">
-            <div className="w-1/3 flex justify-start items-start p-2">
+          <div className="m-5 p-2 flex flex-col md:flex-row items-center md:justify-start bg-gray-800 rounded-lg shadow-lg shadow-gray-600">
+            <div className=" md:w-2/3 flex justify-center items-center p-2">
               <img
-                className="ml-28 mt-8 h-48 w-40 rounded"
+                className="md:m-5 h-auto md:h-72 w-auto md:w-48 rounded"
                 src={`https://image.tmdb.org/t/p/w500/${details.poster_path}`}
                 alt="Poster"
               />
             </div>
-            <div className="mt-8 ml-1">
+            <div className="md:mt-8 md:ml-8">
               <div>
                 <h1 className="text-white text-xl mb-1"><strong>{details.title}</strong></h1>
                 <p className="text-blue-400 mb-1">Rating: {details.vote_average}/10</p>
