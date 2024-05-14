@@ -45,7 +45,7 @@ function HomePage() {
       <Navbar onCategoryChange={handleCategoryChange} onSearch={handleSearch} onPageChange={handlePageChange} currentPage={currentPage} />
       <div className="pt-5 bg-gray-500 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 shadow-2xl shadow--800">
         {movies.map((movie) => (
-          <div key={movie.id} className="flex flex-col items-center">
+          <div key={movie.id} className="flex flex-col items-center transition-transform transform hover:scale-105">
             <Link to={`/movieDetails/${movie.id}`}>
               <img
                 src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
