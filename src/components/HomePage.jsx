@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 
-function HomePage(props) {
+function HomePage() {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 

@@ -78,7 +78,7 @@ function MovieDetails() {
       
       <div className="bg-gray-500 flex justify-center items-center">
         {details && (
-          <div className="m-5 p-2 flex flex-col md:flex-row items-center md:justify-start bg-gray-800 rounded-lg shadow-lg shadow-gray-600">
+          <div className="m-5 p-2 flex flex-col md:flex-row items-center md:items-start md:justify-start bg-gray-800 rounded-lg shadow-lg shadow-gray-600">
             <div className=" md:w-2/3 flex justify-center items-center p-2">
               <img
                 className="md:m-5 h-auto md:h-72 w-auto md:w-48 rounded"
